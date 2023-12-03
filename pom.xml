@@ -15,8 +15,8 @@
 	<packaging>jar</packaging>
 	<description>Solar-watch project for Spring Boot</description>
 	<properties>
-		<api.key_for_tests>${api.key_for_tests}</api.key_for_tests>
-		<api.key>${api.key}</api.key>
+		<api.key.for.tests>${api_key_for_tests}</api.key.for.tests>
+		<api.key>${api_key}</api.key>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
