@@ -38,6 +38,8 @@ jobs:
         echo "TEST_VALUE is: $TEST_VALUE"
       env:
         TEST_VALUE: ${{ secrets.TEST_VALUE2 }}
+        API_KEY_FOR_TESTS: ${{ secrets.API_KEY_FOR_TESTS }}
+        API_KEY: ${{ secrets.API_KEY }}
 
 #    - name: Set API Key for tests for Tests as Environment Variable
 #      run: echo "API_KEY_FOR_TESTS=${{ secrets.API_KEY_FOR_TESTS }}" >> $GITHUB_ENV'
