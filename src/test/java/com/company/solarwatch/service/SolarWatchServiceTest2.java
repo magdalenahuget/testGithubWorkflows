@@ -29,10 +29,6 @@ import static org.mockito.Mockito.when;
 @TestPropertySource(locations = "classpath:test.properties")
 class SolarWatchServiceTest2 {
 
-//    @Autowired
-//    private TestProperties testProperties = new TestProperties();
-
-
     @Value("${api.key}")
     private String configApiKey;
 
