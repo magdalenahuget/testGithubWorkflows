@@ -46,7 +46,9 @@ jobs:
 #    - name: Set API Key as Environment Variable
 #      run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: |
+        echo "API_KEY_FOR_TESTS is: $API_KEY_FOR_TESTS" |
+        mvn -B package --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
