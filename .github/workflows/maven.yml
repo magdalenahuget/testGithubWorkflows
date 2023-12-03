@@ -52,6 +52,10 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file pom.xml
+      env:
+        TEST_VALUE: ${{ secrets.TEST_VALUE2 }}
+        API_KEY_FOR_TESTS: ${{ secrets.API_KEY_FOR_TESTS }}
+        API_KEY: ${{ secrets.API_KEY }}
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
