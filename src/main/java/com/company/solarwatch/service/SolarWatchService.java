@@ -26,16 +26,19 @@ public class SolarWatchService {
         this.restTemplate = restTemplate;
         this.configProperties = configProperties;
     }
+
     public SolarWatchReport getSolarWatchReport(String city, LocalDate date) {
-        String API_KEY = configProperties.getConfigValue("api.key");
+        String API_KEY = "empty";
 
-        if (API_KEY == null) {
-            API_KEY = System.getenv("API_KEY");
+        // Check if running locally or in GitHub Actions
+        if (isGitHubActions()) {
+            API_KEY = System.getenv("API_KEY_FOR_TESTS");
+        } else {
+            API_KEY = getApiKey();
         }
-        System.out.println("API KEY " + API_KEY);
-        String urlGeo = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", city, API_KEY);
 
-        OpenGeoReport[] responseGeo = restTemplate.getForObject(urlGeo, OpenGeoReport[].class);
+        String urlGeo = String.format("https://api.openweathermap.org/geo/1.0/direct?q=paris&appid=a7ee67ca1242926c51c6ec2a212ea364", city, API_KEY);
+        OpenGeoReport[] responseGeo = getOpenGeoReportsFromApi(urlGeo);
         logger.info("Response from Open Geo API: {}", responseGeo);
 
         if (responseGeo != null && responseGeo.length > 0) {
@@ -46,7 +49,7 @@ public class SolarWatchService {
 
             String urlSunriseSunset = String.format("https://api.sunrise-sunset.org/json?lat=%s&lng=%s&date=%s", lat, lon, date);
             logger.info("Requesting data from Open Solar API: {}", urlSunriseSunset);
-            OpenSolarWatchReport responseSolar = restTemplate.getForObject(urlSunriseSunset, OpenSolarWatchReport.class);
+            OpenSolarWatchReport responseSolar = getOpenSolarWatchReportFromApi(urlSunriseSunset);
             logger.info("Response from Open Solar API: {}", responseSolar);
 
             if (responseSolar != null && responseSolar.results() != null) {
@@ -67,5 +70,22 @@ public class SolarWatchService {
         } else {
             throw new CityNotFoundException(city);
         }
+    }
+
+    public OpenSolarWatchReport getOpenSolarWatchReportFromApi(String urlSunriseSunset) {
+        return restTemplate.getForObject(urlSunriseSunset, OpenSolarWatchReport.class);
+    }
+
+    public OpenGeoReport[] getOpenGeoReportsFromApi(String urlGeo) {
+        return restTemplate.getForObject(urlGeo, OpenGeoReport[].class);
+    }
+
+    public String getApiKey() {
+        return configProperties.getConfigValue("api.key");
+    }
+
+    private boolean isGitHubActions() {
+        // Check if the GitHub Actions environment variables are set
+        return System.getenv("GITHUB_ACTIONS") != null && System.getenv("GITHUB_ACTIONS").equalsIgnoreCase("true");
     }
 }
