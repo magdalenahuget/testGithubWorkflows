@@ -1,0 +1,14 @@
+com\company\solarwatch\exception\CityNotFoundException.class
+com\company\solarwatch\model\GeoReport.class
+com\company\solarwatch\exception\IncorrectFormatDateException.class
+com\company\solarwatch\configuration\ConfigProperties.class
+com\company\solarwatch\model\OpenSolarData.class
+com\company\solarwatch\controller\SolarWatchController.class
+com\company\solarwatch\model\OpenGeoReport.class
+com\company\solarwatch\SolarWatchApplication.class
+com\company\solarwatch\model\OpenSolarWatchReport.class
+com\company\solarwatch\model\SolarWatchReport.class
+com\company\solarwatch\service\SolarWatchService.class
+com\company\solarwatch\configuration\RestTemplateConfiguration.class
+com\company\solarwatch\controller\GreetingController.class
+com\company\solarwatch\exception\NoDataFoundInSunriseSunsetApi.class
