@@ -28,11 +28,17 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - shell: bash
-      env:
-        TEST_VALUE: ${{ secrets.testValue }}
+#    - shell: bash
+#      env:
+#        TEST_VALUE: ${{ secrets.TEST_VALUE2 }}
+#      run: |
+#        echo "$TEST_VALUE"
+    - name: Print TEST_VALUE
       run: |
-        example-command "$TEST_VALUE"
+        echo "TEST_VALUE is: $TEST_VALUE"
+      env:
+        TEST_VALUE: ${{ secrets.TEST_VALUE2 }}
+
 #    - name: Set API Key for tests for Tests as Environment Variable
 #      run: echo "API_KEY_FOR_TESTS=${{ secrets.API_KEY_FOR_TESTS }}" >> $GITHUB_ENV'
 #    - name: Set API Key as Environment Variable
