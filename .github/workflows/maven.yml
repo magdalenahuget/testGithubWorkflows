@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CI with Maven - tests
 
 on:
   push:
@@ -17,26 +17,18 @@ on:
   
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Print TEST_VALUE
-      run: |
-        echo "TEST_VALUE is: $TEST_VALUE"
-      env:
-        API_KEY: ${{ secrets.API_KEY }}
-    - name: Print TEST_VALUE2
-      run: |
-        echo "TEST_VALUE is: $TEST_VALUE"
-    - name: Build with Maven
+
+    - name: Build with Maven and run tests
       run: |
         mvn -B package --file pom.xml
       env:
