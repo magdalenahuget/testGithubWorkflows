@@ -27,12 +27,13 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @TestPropertySource(locations="classpath:test.properties")
-class SolarWatchServiceTest2 {
+class SolarWatchServiceTest {
 
     @Value("${api.key}")
     private String configApiKey;
 
-
+    @Mock
+    private RestTemplate restTemplate;
 
     @Mock
     private ConfigProperties configProperties;
@@ -51,16 +52,15 @@ class SolarWatchServiceTest2 {
         String cityName = "paris";
         LocalDate date = LocalDate.of(2023, 5, 25);
         String geoApiKey = configApiKey;
-        System.out.println(geoApiKey);
         String geoApiUrl = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", cityName, geoApiKey);
         Double lat = 48.8588897;
         Double lon = 2.3200410217200766;
         String country = "FR";
         String state = "Ile-de-France";
-        String othetCityNames = getOtherCityNames();
+        String otherCityNames = getOtherCityNames();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        HashMap<String, String> localNamesMap = objectMapper.readValue(othetCityNames, HashMap.class);
+        HashMap<String, String> localNamesMap = objectMapper.readValue(otherCityNames, HashMap.class);
         OpenGeoReport[] openGeoReports = {new OpenGeoReport(cityName, localNamesMap, lat, lon, country, state)};
         String solarApiUrl = String.format("https://api.sunrise-sunset.org/json?lat=%s&lng=%s&date=%s", lat, lon, date);
         OpenSolarWatchReport openSolarWatchReport = new OpenSolarWatchReport(new OpenSolarData("3:55:38 AM", "7:39:38 PM"));
@@ -187,9 +187,8 @@ class SolarWatchServiceTest2 {
         // GIVEN
         String cityName = "NonExistentCity";
         LocalDate date = LocalDate.of(2023, 10, 7);
-        String apiKey = configApiKey;
+        String apiKey = "api key not needed";
         String geoApiUrl = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", cityName, apiKey);
-        System.out.println(configApiKey);
 
         // WHEN
         when(solarWatchService.getApiKey()).thenReturn(apiKey);
@@ -206,7 +205,7 @@ class SolarWatchServiceTest2 {
         // GIVEN
         String cityName = "CityName";
         LocalDate date = LocalDate.of(2023, 10, 7);
-        String apiKey = "your_api_key";
+        String apiKey = "api key not needed";
         String geoApiUrl = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", cityName, apiKey);
         OpenGeoReport[] openGeoReports = {};
 
