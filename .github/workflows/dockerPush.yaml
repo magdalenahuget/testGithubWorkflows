@@ -24,7 +24,6 @@ jobs:
         run: |
           mvn -B package --file pom.xml
         env:
-        TEST_VALUE: ${{ secrets.TEST_VALUE2 }}
         API_KEY_FOR_TESTS: ${{ secrets.API_KEY_FOR_TESTS }}
         API_KEY: ${{ secrets.API_KEY }}
 
