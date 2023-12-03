@@ -28,6 +28,10 @@ public class SolarWatchService {
     }
     public SolarWatchReport getSolarWatchReport(String city, LocalDate date) {
         String API_KEY = configProperties.getConfigValue("api.key");
+
+        if (API_KEY == null) {
+            API_KEY = System.getenv("API_KEY");
+        }
         System.out.println("API KEY " + API_KEY);
         String urlGeo = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", city, API_KEY);
 

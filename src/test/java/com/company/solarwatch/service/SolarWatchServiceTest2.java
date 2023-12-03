@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 class SolarWatchServiceTest2 {
 
 //    @Autowired
@@ -170,6 +170,8 @@ class SolarWatchServiceTest2 {
 
         System.out.println("qweqw " + geoApiKey);
         when(configProperties.getConfigValue("api.key")).thenReturn(geoApiKey);
+        String testApiKeyGet = configProperties.getConfigValue("api.key");
+        System.out.println("testApiKeyGet = " + testApiKeyGet);
         when(restTemplate.getForObject(geoApiUrl, OpenGeoReport[].class)).thenReturn(openGeoReports);
         when(restTemplate.getForObject(solarApiUrl, OpenSolarWatchReport.class)).thenReturn(openSolarWatchReport);
 

@@ -28,6 +28,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Set API Key for tests for Tests as Environment Variable
+      run: echo "API_KEY_FOR_TESTS=${{ secrets.API_KEY_FOR_TESTS }}" >> $GITHUB_ENV'
+    - name: Set API Key as Environment Variable
+      run: echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
