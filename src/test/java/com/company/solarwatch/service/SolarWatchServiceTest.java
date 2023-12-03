@@ -52,6 +52,7 @@ class SolarWatchServiceTest {
         String cityName = "paris";
         LocalDate date = LocalDate.of(2023, 5, 25);
         String geoApiKey = configApiKey;
+        System.out.println(geoApiKey);
         String geoApiUrl = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", cityName, geoApiKey);
         Double lat = 48.8588897;
         Double lon = 2.3200410217200766;

@@ -36,8 +36,7 @@ public class SolarWatchService {
         } else {
             API_KEY = getApiKey();
         }
-
-        String urlGeo = String.format("https://api.openweathermap.org/geo/1.0/direct?q=paris&appid=a7ee67ca1242926c51c6ec2a212ea364", city, API_KEY);
+        String urlGeo = String.format("https://api.openweathermap.org/geo/1.0/direct?q=%s&appid=%s", city, API_KEY);
         OpenGeoReport[] responseGeo = getOpenGeoReportsFromApi(urlGeo);
         logger.info("Response from Open Geo API: {}", responseGeo);
 
